@@ -8,9 +8,9 @@ namespace Фабричный_метод {
             poshta airPoshta = new AirPoshta("Авиа перевозки");
 
             // Используем фабрики для создания транспорта
-            Transport truck = roadPoshta.Create();
-            Transport airplane = airPoshta.Create();
-            Transport train = roadPoshta.Create();
+            Transport truck = roadPoshta.Create("truck");
+            Transport airplane = airPoshta.Create("airplane");
+            Transport train = roadPoshta.Create("train");
 
             truck.Deliver();    // Грузовик доставляет груз по дороге
             airplane.Deliver(); // Самолет доставляет груз по воздуху
@@ -28,29 +28,34 @@ namespace Фабричный_метод {
         }
 
         // Фабричный метод
-        abstract public Transport Create();
+        abstract public Transport Create(string type);
     }
 
     class RoadPoshta : poshta {
         public RoadPoshta(string name) : base(name) { }
 
-        public override Transport Create() {
-            Console.WriteLine("Создан грузовик для: " + Name);
-            return new Truck();
+        public override Transport Create(string type) {
+            if (type == "truck")
+            {
+                Console.WriteLine("Создан грузовик для: " + Name);
+                return new Truck();
+            }
+            else if (type == "train")
+            {
+                Console.WriteLine("Создан поезд для: " + Name);
+                return new Train();
+            }
+            else { return null; }
         }
     }
 
     class AirPoshta : poshta {
         public AirPoshta(string name) : base(name) { }
-        if 
-        public override Transport Create() {
+        public override Transport Create(string type) {
             Console.WriteLine("Создан самолет для: " + Name);
             return new Airplane();
         }
-        public override Transport Create() {
-            Console.WriteLine("Создан поезд для: " + Name);
-            return new Train();
-        }
+     
     }
 
 
